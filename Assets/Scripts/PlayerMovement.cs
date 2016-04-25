@@ -18,18 +18,25 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField]
 	private float jumpForce = 0;
 	[SerializeField]
-	private LayerMask whatIsGround = 0;
+	private LayerMask whatIsGround = -1;
 
 	private Rigidbody2D playerRigidbody;
 	private Animator playerAnimator;
 
 	private bool facingRight;
+
+	[SerializeField]
 	private bool isGrounded;
 	private bool movementEnabled = true;
+	private string groundTag;
 
 	private float horizontal;
 
 	private Vector3 startPosition;
+
+	[SerializeField]
+	private float holdToClimbLimit = 0;
+	private float holdToClimbTimer = 0;
  
 	// Use this for initialization
 	void Start () {
@@ -40,7 +47,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		HandleKeyboard();
+		//HandleKeyboard();
 	}
 	
 	// Update is called once per frame
@@ -73,19 +80,24 @@ public class PlayerMovement : MonoBehaviour {
 				playerAnimator.SetBool("land", false);
 				playerAnimator.SetBool("fall", true);
 			}
-		} else {
-			playerAnimator.SetFloat("speed", 0);
 
 			// handle when player is on ledge
 			if (playerAnimator.GetBool("ledge grab")) {
-				if (gameObject.transform.localScale.x < 0 && horizontalDirection > 0/*facing left and pressing right*/ 
+				if (gameObject.transform.localScale.x < 0 && horizontalDirection < 0/*facing left and pressing left*/ 
+						   || gameObject.transform.localScale.x > 0 && horizontalDirection > 0/*facing right and pressing right*/) {
+					// timer in place b/c climb is called even if player chooses to release ledge
+					holdToClimbTimer += Time.deltaTime;
+
+					if (holdToClimbTimer > holdToClimbLimit) {
+						ClimbLedge();
+					}
+				} else if (gameObject.transform.localScale.x < 0 && horizontalDirection > 0/*facing left and pressing right*/ 
 					|| gameObject.transform.localScale.x > 0 && horizontalDirection < 0/*facing right and pressing left*/) {
 					ReleaseLedge ();
-				} else if (gameObject.transform.localScale.x < 0 && horizontalDirection < 0/*facing left and pressing left*/ 
-						   || gameObject.transform.localScale.x > 0 && horizontalDirection > 0/*facing right and pressing right*/) {
-					ClimbLedge();
 				}
 			}
+		} else {
+			playerAnimator.SetFloat("speed", 0);
 		}
 	}
 
@@ -104,12 +116,28 @@ public class PlayerMovement : MonoBehaviour {
 	private bool CheckIsGrounded () {
 		
 		foreach (Transform point in groundpoints) {
-			Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
+
+			Collider2D[] colliders = null;
+			colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
 
 			foreach (Collider2D collider in colliders) {
 				if (collider.gameObject != gameObject) {
+
+					// corrects bump up when moving up slope
+					if (playerRigidbody.velocity.y > 0 && playerAnimator.GetBool("jump") == false) {
+						playerRigidbody.velocity = new Vector2 (playerRigidbody.velocity.x, 0);
+					}
+
+					// included to assist above statement (originally was a trigger)
+					if (playerRigidbody.velocity.y < 0) {
+						playerAnimator.SetBool("jump", false);
+					}
+
 					playerAnimator.SetBool("fall", false);
 					playerAnimator.SetBool("land", true);
+
+
+					groundTag = collider.gameObject.tag;
 					return true;
 				}
 			}
@@ -148,10 +176,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void Jump () {
 
-		if (isGrounded && movementEnabled) {
+		if (isGrounded && movementEnabled /*&& playerRigidbody.velocity.y == 0 TODO too restrictive, build range*/) {
 			playerAnimator.SetBool("land", false);
 			playerRigidbody.AddForce(new Vector2 (0, jumpForce));
-			playerAnimator.SetTrigger("jump");
+			playerAnimator.SetBool("jump", true);
+
 
 			// reset all interactables
 			MovableObject[] interactables = GameObject.FindObjectsOfType<MovableObject>();
@@ -190,6 +219,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void DisableClimb () {
 		playerAnimator.SetBool("climb", false);
+		holdToClimbTimer = 0;
 	}
 
 	public void ResetVeloctiy () {
@@ -199,16 +229,25 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void ReleaseLedge () {
 		playerRigidbody.drag = 0f;
-		EnableAllMovement();
-		FlipImage(horizontal);
 		playerAnimator.SetBool("ledge grab", false);
+		FlipImage(horizontal);
 	}
 
-	public void ClimbLedge () {
-		playerAnimator.SetTrigger("climb");
+	private void ClimbLedge () {
+		if (playerAnimator.GetBool("ledge grab")) {
+			playerAnimator.SetBool("climb", true);
+		}
 	}
 
 	public void TeleportClimb () { 
 		transform.position = new Vector2 (transform.position.x + 0.25f * transform.localScale.x, transform.position.y + 1.75f);
+	}
+
+	public float GetHorizontal () {
+		return horizontal;
+	}
+
+	public string GetGroundTag () {
+		return groundTag;
 	}
 }

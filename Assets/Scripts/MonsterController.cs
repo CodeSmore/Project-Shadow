@@ -92,4 +92,8 @@ public class MonsterController : MonoBehaviour {
 		monsterRigidbody.velocity = new Vector2 (speed, 0f);
 		animator.SetBool("walking", walkEnabled);
 	}
+
+	public void DisableWalk () {
+		animator.SetBool("walking", false);
+	}
 }

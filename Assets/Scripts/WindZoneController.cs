@@ -12,13 +12,20 @@ public class WindZoneController : MonoBehaviour {
 	[SerializeField]
 	private float disabledTime = 0;
 
+	[SerializeField]
+	private float lowWindVolume = 0;
+	[SerializeField]
+	private float highWindVolume = 0;
+
 	private SpriteRenderer spriteRenderer;
+	private AudioSource windAudioSource;
 
 	private bool windEnabled = true;
 	private float windTimer = 0;
 
 	void Start () {
 		spriteRenderer = GetComponentInChildren<SpriteRenderer>();	
+		windAudioSource = GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -27,8 +34,10 @@ public class WindZoneController : MonoBehaviour {
 
 			if (windTimer < enabledTime) {
 				windEnabled = true;
+				windAudioSource.volume = highWindVolume;
 			} else if (windTimer < enabledTime + disabledTime) {
 				windEnabled = false;
+				windAudioSource.volume = lowWindVolume;
 			} else {
 				windTimer = 0;
 			}
@@ -45,10 +54,10 @@ public class WindZoneController : MonoBehaviour {
 	void ManageColor () {
 		if (windEnabled) {
 			// purple
-			spriteRenderer.color = new Color (0.6f, 0.6f, 1f);
+			spriteRenderer.color = new Color (0.6f, 0.6f, 1f, 0.4f);
 		} else {
 			// sky blue
-			spriteRenderer.color = new Color (0.6f, 1f, 1f);
+			spriteRenderer.color = new Color (0.6f, 1f, 1f, 0.4f);
 		}
 	}
 

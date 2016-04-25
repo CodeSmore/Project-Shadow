@@ -27,6 +27,8 @@ public class MovableObject : MonoBehaviour {
 
 	[SerializeField]
 	private float clingPadding = 0.2f;
+	[SerializeField]
+	private bool inWater = false;
 
 	// Use this for initialization
 	void Start () {
@@ -63,15 +65,6 @@ public class MovableObject : MonoBehaviour {
 					transform.position = new Vector3 (playerTransform.position.x - objectToPlayerVector.x, transform.position.y);
 				}
 
-//				if (objectToPlayerVector.x < -1) {
-//					objectToPlayerVector = new Vector3 (-1f, objectToPlayerVector.y, objectToPlayerVector.z);
-//					transform.position = new Vector3 (playerTransform.position.x - objectToPlayerVector.x, transform.position.y);
-//
-//				} else if (objectToPlayerVector.x > 1) {
-//					objectToPlayerVector = new Vector3 (1f, objectToPlayerVector.y, objectToPlayerVector.z);
-//					transform.position = new Vector3 (playerTransform.position.x - objectToPlayerVector.x, transform.position.y);
-//				}
-
 				objectRigidbody.velocity = new Vector2 (playerRigidbody.velocity.x, objectRigidbody.velocity.y);
 			} else {
 				playerMovement.SetEncumbered(true);
@@ -87,9 +80,10 @@ public class MovableObject : MonoBehaviour {
 				}
 			}
 
-			// if player and object's 'y' coordinates differ too much, switch to "neutral" state
+			// if player and object's 'y' coordinates differ too much, switch to "neutral" state and player to NOT encumbered	
 			if (playerMovement.gameObject.transform.position.y - transform.position.y > .6 || transform.position.y - playerMovement.gameObject.transform.position.y > .6) {
 				state = ObjectState.Neutral;
+				playerMovement.SetEncumbered (false);
 			}
 		}
 	}
@@ -105,8 +99,10 @@ public class MovableObject : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D collider) {
-		if (collider.gameObject.tag == "Player" && state != ObjectState.Triggered && state != ObjectState.Interacting) {
+		if (collider.gameObject.tag == "Player" && state != ObjectState.Triggered && state != ObjectState.Interacting && !inWater) {
 			state = ObjectState.Triggered;
+		} else if (collider.gameObject.layer == 4) {
+			inWater = true;
 		}
 	}
 

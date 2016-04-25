@@ -10,7 +10,7 @@ public class Raycasting : MonoBehaviour {
 	[SerializeField]
 	private float viableClingDistance = 0;
 	[SerializeField]
-	private LayerMask layersToHit = -1;
+	private LayerMask layerToHit = -1;
 
 	private PlayerMovement playerMovement;
 	private Rigidbody2D playerRigidbody2D;
@@ -39,21 +39,23 @@ public class Raycasting : MonoBehaviour {
 			playerRigidbody2D.drag = 1000;
 
 		} else {
-			playerAnimator.SetBool("ledge grab", false);
-			playerMovement.EnableAllMovement();
-			playerRigidbody2D.drag = 0;
+			if (playerAnimator.GetBool("ledge grab")) {
+				playerAnimator.SetBool("ledge grab", false);
+				playerMovement.EnableAllMovement();
+				playerRigidbody2D.drag = 0;
+			}
 		}
 
 		originVector = new Vector2 (origin.transform.position.x, originVector.y);
-		hit = Physics2D.Raycast(new Vector2 (originVector.x, originVector.y), Vector2.down, 2f, layersToHit);
+
+		hit = Physics2D.Raycast(new Vector2 (originVector.x, originVector.y), Vector2.down, 2f, layerToHit);
 
 		// 'hit.point' reverts to (0,0) if hit == false, so it's set to max distance down instead
 		if (!hit) {
-			Debug.DrawLine(originVector, new Vector2 (originVector.x, originVector.y - 2));
+			Debug.DrawLine(originVector, new Vector2 (originVector.x, originVector.y - 2), Color.red);
 		} else {
-			Debug.DrawLine(originVector, hit.point);
-		}
-
+			Debug.DrawLine(originVector, hit.point, Color.red);
+		} 
 	}
 
 	void UpdateRayYAxis () {

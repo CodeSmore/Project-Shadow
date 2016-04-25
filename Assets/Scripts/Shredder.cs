@@ -3,15 +3,17 @@ using System.Collections;
 
 public class Shredder : MonoBehaviour {
 
-	private PlayerMovement playerMovement;
+	private LevelManager levelManager;
 
 	void Start () {
-		playerMovement = GameObject.FindObjectOfType<PlayerMovement>();
+		levelManager = FindObjectOfType<LevelManager>();
 	}
 
 	void OnTriggerEnter2D (Collider2D collider) {
 		if (collider.tag == "Player") {
-			playerMovement.ResetPosition();
+			levelManager.ResetLevel();
+		} else {
+			Destroy(collider.gameObject);
 		}
 	}
 }
