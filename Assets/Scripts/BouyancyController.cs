@@ -12,7 +12,7 @@ public class BouyancyController : MonoBehaviour {
 
 	void Start () {
 		BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
-		soundController = GameObject.FindObjectOfType<SoundController>();
+		soundController = GameObject.Find("SoundController").GetComponent<SoundController>();
 
 		waterSurfaceYPos = transform.position.y + boxCollider.size.y / 2 + boxCollider.offset.y;
 	}

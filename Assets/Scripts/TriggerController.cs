@@ -15,17 +15,16 @@ public class TriggerController : MonoBehaviour {
 	private SoundController soundController;
 
 	void Start () {
-		soundController = GameObject.FindObjectOfType<SoundController>();
+		soundController = GameObject.Find("SoundController").GetComponent<SoundController>();
 	}
 
 	void OnTriggerEnter2D (Collider2D collider) {
 		foreach (string tag in tagsThatTrigger) {
 			if (collider.gameObject.tag == tag) {
-				trigger = true;
-
-				if (soundTrigger) {
+				if (soundTrigger && trigger == false) {
 					soundController.PlaySoundEffect(soundNumToTrigger);
 				}
+				trigger = true;
 			}
 		}
 	}

@@ -5,8 +5,12 @@ public class Snowman : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject snowManHead = null;
+	[SerializeField]
+	private TriggerController trigger = null;
 
 	void OnDestroy () {
-		Instantiate(snowManHead, transform.position, Quaternion.identity);
+		if (trigger.IsTriggered()) {
+			Instantiate(snowManHead, transform.position, Quaternion.identity);
+		}
 	}
 }

@@ -18,6 +18,16 @@ public class LevelManager : MonoBehaviour {
 		SceneManager.LoadScene(sceneName);
 	}
 
+	public void LoadNextScene () {
+		int sceneToLoad = SceneManager.GetActiveScene().buildIndex + 1;
+
+		if (sceneToLoad >= SceneManager.sceneCountInBuildSettings) {
+			sceneToLoad = 0;
+		}
+
+		SceneManager.LoadScene(sceneToLoad);
+	}
+
 	public void ResetLevel () {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}

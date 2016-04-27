@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField]
 	private bool RestrictedJump = false;
 	[SerializeField]
-	private Transform[] groundpoints = null;
+	private Transform[] groundPoints = null;
 	[SerializeField]
 	private float groundRadius = 0;
 	[SerializeField]
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private Rigidbody2D playerRigidbody;
 	private Animator playerAnimator;
+	private PlayerSoundController playerSoundController;
 
 	private bool facingRight;
 
@@ -37,11 +38,17 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField]
 	private float holdToClimbLimit = 0;
 	private float holdToClimbTimer = 0;
+
+	private float startJumpYPos = 0;
+	private float endJumpYPos = 0;
+	[SerializeField]
+	private float hardLandingThreshold = 0;
  
 	// Use this for initialization
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D>();
 		playerAnimator = GetComponent<Animator>();
+		playerSoundController = GetComponent<PlayerSoundController>();
 
 		startPosition = transform.position;
 	}
@@ -115,7 +122,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private bool CheckIsGrounded () {
 		
-		foreach (Transform point in groundpoints) {
+		foreach (Transform point in groundPoints) {
 
 			Collider2D[] colliders = null;
 			colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
@@ -131,7 +138,17 @@ public class PlayerMovement : MonoBehaviour {
 					// included to assist above statement (originally was a trigger)
 					if (playerRigidbody.velocity.y < 0) {
 						playerAnimator.SetBool("jump", false);
+						endJumpYPos = transform.position.y;
+
+						// decide to play hard landing or not
+						if ((startJumpYPos - endJumpYPos) > hardLandingThreshold) {
+							// play sound
+							playerSoundController.PlayHardLandingSound();
+
+							startJumpYPos = endJumpYPos = transform.position.y;
+						}
 					}
+
 
 					playerAnimator.SetBool("fall", false);
 					playerAnimator.SetBool("land", true);
@@ -181,12 +198,17 @@ public class PlayerMovement : MonoBehaviour {
 			playerRigidbody.AddForce(new Vector2 (0, jumpForce));
 			playerAnimator.SetBool("jump", true);
 
+			// play 'jump' sound effect
+			playerSoundController.PlayJumpingSound();
+
 
 			// reset all interactables
 			MovableObject[] interactables = GameObject.FindObjectsOfType<MovableObject>();
 			foreach (MovableObject inter in interactables) {
 				inter.ReactToPlayerJump();
 			}
+
+			startJumpYPos = transform.position.y;
 		} 
 	}
 

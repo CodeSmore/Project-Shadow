@@ -15,7 +15,11 @@ public class PlayerSoundController : MonoBehaviour {
 	[SerializeField]
 	private AudioClip runningStone = null;
 	[SerializeField]
+	private AudioClip jumping = null;
+	[SerializeField]
 	private AudioClip landing = null;
+	[SerializeField]
+	private AudioClip hardLanding = null;
 
 	private PlayerMovement playerMovement;
 
@@ -44,7 +48,15 @@ public class PlayerSoundController : MonoBehaviour {
 		}
 	}
 
+	public void PlayJumpingSound () {
+		oneShotAudioSource.PlayOneShot(jumping);
+	}
+
 	public void PlayLandingSound () {
 		oneShotAudioSource.PlayOneShot(landing);
+	}
+
+	public void PlayHardLandingSound () {
+		oneShotAudioSource.PlayOneShot(hardLanding);
 	}
 }

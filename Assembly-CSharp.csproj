@@ -45,6 +45,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Boulder.cs" />
+     <Compile Include="Assets\Box.cs" />
      <Compile Include="Assets\DisappearFromTrigger.cs" />
      <Compile Include="Assets\Floater.cs" />
      <Compile Include="Assets\MusicManager.cs" />
@@ -71,6 +73,7 @@
      <Compile Include="Assets\Scripts\WindZoneController.cs" />
      <Compile Include="Assets\Snowman.cs" />
      <Compile Include="Assets\SoundController.cs" />
+     <Compile Include="Assets\TransitionTrigger.cs" />
      <Compile Include="Assets\Tree.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
