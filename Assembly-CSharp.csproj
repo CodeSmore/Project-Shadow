@@ -45,36 +45,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Boulder.cs" />
-     <Compile Include="Assets\Box.cs" />
-     <Compile Include="Assets\DisappearFromTrigger.cs" />
-     <Compile Include="Assets\Floater.cs" />
-     <Compile Include="Assets\MusicManager.cs" />
-     <Compile Include="Assets\PlatformTriggerCollision.cs" />
-     <Compile Include="Assets\PlayerSoundController.cs" />
+     <Compile Include="Assets\BoulderInteractCollider.cs" />
+     <Compile Include="Assets\MenuController.cs" />
+     <Compile Include="Assets\Scripts\Boulder.cs" />
      <Compile Include="Assets\Scripts\BouyancyController.cs" />
+     <Compile Include="Assets\Scripts\Box.cs" />
      <Compile Include="Assets\Scripts\ColapsibleFloor.cs" />
+     <Compile Include="Assets\Scripts\DisappearFromTrigger.cs" />
+     <Compile Include="Assets\Scripts\Floater.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\InWaterController.cs" />
      <Compile Include="Assets\Scripts\LevelManager.cs" />
      <Compile Include="Assets\Scripts\MonsterController.cs" />
      <Compile Include="Assets\Scripts\MovableObject.cs" />
+     <Compile Include="Assets\Scripts\MusicManager.cs" />
      <Compile Include="Assets\Scripts\OnScreenText.cs" />
+     <Compile Include="Assets\Scripts\PlatformTriggerCollision.cs" />
      <Compile Include="Assets\Scripts\PlayerInteractableController.cs" />
      <Compile Include="Assets\Scripts\PlayerLauncher.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerPrefsManager.cs" />
+     <Compile Include="Assets\Scripts\PlayerSoundController.cs" />
      <Compile Include="Assets\Scripts\Raycasting.cs" />
      <Compile Include="Assets\Scripts\ScoreKeeper.cs" />
      <Compile Include="Assets\Scripts\Shredder.cs" />
+     <Compile Include="Assets\Scripts\Snowman.cs" />
+     <Compile Include="Assets\Scripts\SoundController.cs" />
      <Compile Include="Assets\Scripts\SuspendedDroppable.cs" />
      <Compile Include="Assets\Scripts\Target.cs" />
      <Compile Include="Assets\Scripts\TemperatureController.cs" />
+     <Compile Include="Assets\Scripts\TransitionTrigger.cs" />
+     <Compile Include="Assets\Scripts\Tree.cs" />
      <Compile Include="Assets\Scripts\TriggerController.cs" />
      <Compile Include="Assets\Scripts\WindZoneController.cs" />
-     <Compile Include="Assets\Snowman.cs" />
-     <Compile Include="Assets\SoundController.cs" />
-     <Compile Include="Assets\TransitionTrigger.cs" />
-     <Compile Include="Assets\Tree.cs" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

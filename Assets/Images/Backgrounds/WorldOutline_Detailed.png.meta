@@ -1,0 +1,121 @@
+fileFormatVersion: 2
+guid: 83239900a350d6a449fd920d1e4dcce8
+timeCreated: 1461761289
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Level 2
+    21300002: Level 1
+    21300004: Level 3
+    21300006: Level 4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 20
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Level 2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 568
+        width: 1500
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -750, y: 164.5}
+        - {x: -750, y: -164.5}
+        - {x: 750, y: -164.5}
+        - {x: 750, y: 164.5}
+    - name: Level 1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 901
+        width: 1500
+        height: 210
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -750, y: 105}
+        - {x: -750, y: -105}
+        - {x: 750, y: -105}
+        - {x: 750, y: 105}
+    - name: Level 3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 272
+        width: 1500
+        height: 296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -750, y: 148}
+        - {x: -750, y: -148}
+        - {x: 750, y: -148}
+        - {x: 750, y: 148}
+    - name: Level 4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1500
+        height: 274
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -750, y: 137}
+        - {x: -750, y: -137}
+        - {x: 750, y: -137}
+        - {x: 750, y: 137}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

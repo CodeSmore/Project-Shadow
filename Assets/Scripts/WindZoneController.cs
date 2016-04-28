@@ -13,9 +13,9 @@ public class WindZoneController : MonoBehaviour {
 	private float disabledTime = 0;
 
 	[SerializeField]
-	private float lowWindVolume = 0;
+	private AudioClip highWindSound = null;
 	[SerializeField]
-	private float highWindVolume = 0;
+	private AudioClip lowWindSound = null;
 
 	private SpriteRenderer spriteRenderer;
 	private AudioSource windAudioSource;
@@ -34,12 +34,16 @@ public class WindZoneController : MonoBehaviour {
 
 			if (windTimer < enabledTime) {
 				windEnabled = true;
-				windAudioSource.volume = highWindVolume;
+				windAudioSource.clip = highWindSound;
 			} else if (windTimer < enabledTime + disabledTime) {
 				windEnabled = false;
-				windAudioSource.volume = lowWindVolume;
+				windAudioSource.clip = lowWindSound;
 			} else {
 				windTimer = 0;
+			}
+
+			if (!windAudioSource.isPlaying) {
+				windAudioSource.Play();
 			}
 
 			ManageColor();

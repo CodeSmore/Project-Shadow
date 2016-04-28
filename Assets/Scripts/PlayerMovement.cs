@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		//HandleKeyboard();
+		HandleKeyboard();
 	}
 	
 	// Update is called once per frame
@@ -172,7 +172,17 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void HandleKeyboard () {
-		horizontal = Input.GetAxis("Horizontal");
+		if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) {
+			// move right
+			horizontal = 1;
+		} else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) {
+			// move left
+			horizontal = -1;
+		} 
+
+		if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
+			horizontal = 0;
+		}
 
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			Jump();

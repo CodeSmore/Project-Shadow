@@ -1,6 +1,5 @@
 Project Shadow TODO
 
-- Fix all puzzles so player can jump against walls
-- Comment code
 - Fix Boulder puzzle to make boulder easier to climb
-- Make freezing puzzle
+- Add pause menu
+- Add music volume and sound effects volume sliders (use PlayerPrefs to save volume levels)
